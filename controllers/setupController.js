@@ -22,6 +22,12 @@ module.exports = function(app) {
         todo: 'Stick with one boyfriend',
         isDone: false,
         hasAttachment: false
+      }, 
+      {
+        username: 'test',
+        todo: 'Learn NodeJS',
+        isDone: false,
+        hasAttachment: false
       }
     ];
     

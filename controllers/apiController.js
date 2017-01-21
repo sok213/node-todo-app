@@ -1,5 +1,5 @@
 var Todos = require('../models/todoModel'),
-    bodyParser = require('bodyParser');
+    bodyParser = require('body-parser');
     
 module.exports = function(app) {
   // Parse out JSON out of the HTTP request body.
@@ -24,7 +24,7 @@ module.exports = function(app) {
   app.get('/api/todo/:id', function(req, res) {
     
     // Find data and send to response.
-    Todos.findById({ _id: req.params.id }, function() {
+    Todos.findById({ _id: req.params.id }, function(err, todo) {
       if (err) throw err;
       
       res.send(todo);
@@ -43,7 +43,7 @@ module.exports = function(app) {
           isDone: req.body.isDone,
           hasAttachment: req.body.hasAttachment
         }, function(err, todo) {
-            if (err) throw error;    
+            if (err) throw err;    
             res.send('Success');
         });  
     // If no ID, create a new todo and save it to Mongo.
@@ -55,7 +55,7 @@ module.exports = function(app) {
         hasAttachment: req.body.hasAttachment
       });
       newTodo.save(function(err) {
-        if (error) throw error;
+        if (err) throw err;
         res.send('Success');
       });
     }
@@ -64,7 +64,7 @@ module.exports = function(app) {
   // DELETE from /todo
   app.delete('/api/todo', function(req, res) {
     Todos.findByIdAndRemove(req.body.id, function(err) {
-      if (error) throw error;
+      if (err) throw err;
       res.send('Success');
     });
   });

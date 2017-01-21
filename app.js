@@ -3,6 +3,7 @@ var express         = require('express'),
     mongoose        = require('mongoose'),
     config          = require('./config'),
     setupController = require('./controllers/setupController'),
+    apiController   = require('./controllers/apiController'),
     app             = express(),
     port            = process.env.PORT || 3000;
 
@@ -20,6 +21,9 @@ mongoose.connect(config.getDbConnectionString());
 // and passes in the express app in order for the function to send a 
 // response.
 setupController(app);
+
+// Pass in app to apiController.
+apiController(app);
 
 // listens to the port.
 app.listen(port);
